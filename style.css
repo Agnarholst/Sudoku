@@ -13,6 +13,7 @@ table {
 
 td,
 th {
+  font-size: 30px;
   border: 1px solid black;
   padding: 10px 20px;
   background-color: rgb(92, 92, 109);
@@ -22,6 +23,27 @@ td:hover {
   background-color: grey;
 }
 
-td.onlcick {
-  background-color: red;
+
+.active {
+  background-color: rgb(59, 59, 113);
+}
+
+.active:hover {
+  background-color: rgb(59, 59, 113); /* Override hover effect for active cell */
+}
+
+button {
+  color: rgb(97, 97, 239);
+  margin-top: 25px;
+  font-size: 40px;
+  border: none;
+  background-color: #101215;
+}
+
+.button {
+  transition-duration: 0.4s;
+}
+
+.button:hover {
+  color: white;
 }
