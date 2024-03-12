@@ -14,9 +14,9 @@ table {
 td,
 th {
   font-size: 30px;
-  border: 1px solid black;
+  border: 1px solid rgb(40, 40, 40);
   padding: 10px 20px;
-  background-color: rgb(92, 92, 109);
+  background-color: rgb(85, 85, 106);
 }
 
 td:hover {
@@ -25,15 +25,15 @@ td:hover {
 
 
 .active {
-  background-color: rgb(59, 59, 113);
+  background-color: rgb(64, 95, 200);
 }
 
 .active:hover {
-  background-color: rgb(59, 59, 113); /* Override hover effect for active cell */
+  background-color: rgb(64, 95, 200); /* Override hover effect for active cell */
 }
 
 button {
-  color: rgb(97, 97, 239);
+  color: rgb(114, 140, 227);
   margin-top: 25px;
   font-size: 40px;
   border: none;
@@ -47,3 +47,28 @@ button {
 .button:hover {
   color: white;
 }
+
+
+/* Flexbox */
+
+.upperThree {
+  font-size: 30px;
+  display: flex;
+}
+
+
+.middleThree {
+  display: flex;
+  font-size: 30px;
+}
+
+.lowerThree {
+  font-size: 30px;
+  display: flex;
+}
+
+
+.border {
+  border: 1px black solid;
+}
+
