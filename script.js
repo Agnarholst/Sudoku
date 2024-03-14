@@ -1,6 +1,78 @@
 let activeCell = null;
 let activeCellId = null;
 let box = [];
+const sudokuboardLetters = {
+    "01A": 5, "02A": 0, "03A": 3, "04B": 9, "05B": 1, "06B": 0, "07C": 0, "08C": 0, "09C": 7,
+
+    "10A": 0, "11A": 2, "12A": 6, "13B": 0, "14B": 3, "15B": 0, "16C": 8, "17C": 0, "18C": 5,
+
+    "19A": 4, "20A": 9, "21A": 0, "22B": 0, "23B": 8, "24B": 6, "25C": 2, "26C": 0, "27C": 0,
+
+    "28D": 0, "29D": 5, "30D": 0, "31E": 0, "32E": 2, "33E": 0, "34F": 1, "35F": 7, "36F": 8,
+
+    "37D": 7, "38D": 0, "39D": 0, "40E": 0, "41E": 5, "42E": 0, "43F": 0, "44F": 0, "45F": 3,
+
+    "46D": 8, "47D": 0, "48D": 9, "49E": 0, "50E": 0, "51E": 0, "52F": 0, "53F": 0, "54F": 2,
+
+    "55G": 0, "56G": 0, "57G": 0, "58H": 0, "59H": 0, "60H": 0, "61I": 0, "62I": 2, "63I": 4,
+
+    "64G": 0, "65G": 7, "66G": 8, "67H": 0, "68H": 4, "69H": 0, "70I": 0, "71I": 1, "72I": 9,
+
+    "73G": 0, "74G": 4, "75G": 5, "76H": 7, "77H": 9, "78H": 0, "79I": 3, "80I": 0, "81I": 0
+};
+
+const entriesArray = Object.entries(sudokuboardLetters);
+
+let A = ["1", "2", "3", "10", "11", "12", "19", "20", "21"]
+let B = ["4", "5", "6", "13", "14", "15", "22", "23", "24"]
+
+
+
+// Forsøk bare å sett første rute til første veriden i nøkkel 1. Også prøv 2-3 ruter, også prøv å lag en loop som tar alle 81. 
+
+// Test Function
+function test() {
+    numExtraction = Number(entriesArray[3][0].slice(0, -1));
+}
+
+test()
+
+// // function setBoard(board) {
+//     i = 1;
+//     while (i < 81) {
+//         console.log(i + "A")
+//         cellValue = board[i + "A"];
+//         console.log(cellValue);
+//         i++
+//     }
+//     //     if (cellValue !== 0) {
+//     //         document.getElementById(i).style.color = "rgb(228, 234, 253)";
+//     //     }
+//     //     document.getElementById(i).innerHTML = cellValue;
+//     //     i++;
+//     // }
+// }
+
+// function setBoard(board) {
+//     i = 1;
+//     while (i < 81) {
+//         console.log(i + "A")
+//         cellValue = board[i + "A"];
+//         console.log(cellValue);
+//         i++
+//     }
+//         if (cellValue !== 0) {
+//             document.getElementById(i).style.color = "rgb(228, 234, 253)";
+//         }
+//         = document.getElementById(i).innerHTML = cellValue;
+//         i++;
+//     }
+// }
+
+// setBoard(sudokuboard);
+
+// GAMMEL KODE FOR BAKCUP 1/2................
+
 const sudokuboard = {
     "1": 5, "2": 0, "3": 3, "4": 9, "5": 1, "6": 0, "7": 0, "8": 0, "9": 7,
 
@@ -21,9 +93,7 @@ const sudokuboard = {
     "73": 0, "74": 4, "75": 5, "76": 7, "77": 9, "78": 0, "79": 3, "80": 0, "81": 0
 };
 
-
-// Forsøk bare å sett første rute til første veriden i nøkkel 1. Også prøv 2-3 ruter, også prøv å lag en loop som tar alle 81. 
-
+// GAMMEL KODE FOR BAKCUP 2/2
 
 function setBoard(board) {
     i = 1;
@@ -38,11 +108,9 @@ function setBoard(board) {
     }
 }
 
-setBoard(sudokuboard);
+setBoard(sudokuboard)
 
-function changeColor() {
-
-}
+// GAMMEL KODE SLUTTER HER.................
 
 function makeActive(cell) {
     if (activeCell !== null) {
@@ -75,20 +143,41 @@ let wrongCounter = 0;
 
 
 //Checks if box is full against an array
+// function setNumber(num) {
+//     if (activeCell !== null) {
+//         console.log("SetNumber Function Start")
+//         for (let i of box) {
+//             console.log(i)
+//             if (num == i) {
+//                 return console.log("Break. Already a number in the box.");
+//             }
+//         }
+//         activeCell.innerHTML = num;
+//         activeCell.style.color = "rgb(228, 234, 253)";
+//         box.push(num);
+//         console.log(box);
+//     }
+// }
+
+
 function setNumber(num) {
     if (activeCell !== null) {
         console.log("SetNumber Function Start")
-        for (let i of box) {
-            console.log(i)
-            if (num == i) {
+        activeCellId = activeCell.getAttribute("id")
+        for (let i of A) {
+            console.log(sudokuboard[i])
+            if (num == sudokuboard[i]) {
                 return console.log("Break. Already a number in the box.");
-            }
+            } 
         }
         activeCell.innerHTML = num;
+        activeCell.style.color = "rgb(,228, 234, 253)";
+        sudokuboard[activeCellId] = Number(num);
         box.push(num);
-        console.log(box);
+        console.log(sudokuboard);
     }
 }
+
 
 // Sudokubrett kan jo tenkes som et stort array laget av av 9 arrays... også må man sammenligne arrays...
 // Type eller så har man 18 unike arrays. Virker unødvendig. Eller så har man et array med mye loggikk, og splicing. 
