@@ -23,9 +23,6 @@ const sudokuboardLetters = {
 
 const entriesArray = Object.entries(sudokuboardLetters);
 
-let boxA = ["1", "2", "3", "10", "11", "12", "19", "20", "21"]
-let boxB = ["4", "5", "6", "13", "14", "15", "22", "23", "24"]
-
 function test() {
     cellNum = Number(entriesArray[1][0].slice(0, -3))
     cellRow = entriesArray[72][0].slice(2, -2)
@@ -69,39 +66,28 @@ let wrongCounter = 0;
 
 function setNumber(num) {
     if (activeCell !== null) {
-        console.log("SetNumber Function Start")
-        activeCellId = activeCell.getAttribute("id")
-        console.log(activeCell);
-        for (let i of boxA) {
-            console.log(sudokuboardLetters[i])
-            if (num == sudokuboardLetters[i]) {
-                return console.log("Break. Already a number in the box.");
-            } 
+        console.log("SetNumber Function Start");
+        activeCellId = activeCell.getAttribute("id");
+        console.log(sudokuboardLetters[activeCellId]);
+        if (sudokuboardLetters[activeCellId] !== 0) {
+            return console.log("Only empty squares can be given numbers.");
+        } else {
+            whichBox = activeCellId.slice(-1);
+            for (let i of Object.keys(sudokuboardLetters)) {
+                console.log(i);
+                if (i.slice(-1) == whichBox) { // Box-logic to avoid duplicates within same box. 
+                    if (sudokuboardLetters[i] == num) {
+                        return console.log("Can't have two of same number within same box.")
+                    }
+                }
+                // if statement for checking row {}
+                // if statement for checking col {}
+            }
+            console.log("hell yeah.");
+            activeCell.innerHTML = num;
+            activeCell.style.color = "rgb(,228, 234, 253)";
+            sudokuboardLetters[activeCellId] = Number(num);
         }
-        activeCell.innerHTML = num;
-        activeCell.style.color = "rgb(,228, 234, 253)";
-        sudokuboardLetters[activeCellId] = Number(num);
-        box.push(num);
-        console.log(sudokuboardLetters);
+
     }
-}
-
-
-// Sudokubrett kan jo tenkes som et stort array laget av av 9 arrays... også må man sammenligne arrays...
-// Type eller så har man 18 unike arrays. Virker unødvendig. Eller så har man et array med mye loggikk, og splicing. 
-// Type 81 tall... 1 til 9 må være unike right... 10 til 18 må være unike også videre... da har man jo sjekket at for 
-// radene... også kan man sjekke for en rute.... som sier at rute-id 1, 2, 3 og 10, 11, 12, og 19, 20, 21 må være unike. 
-// Slik sjekker man at boksen ikke har mer enn et av samme tall også må man sjekke rute-id 1, 10, 19, 28 også videre for å
-// sjekke nedover. Det viktigste er at den ikke tar en slik sjekk for alle mulige tall... da blir det uffektivt... så basert
-// på activeCellId som en parameter så må den kunne sjekke de tre greiene, men basert på samme funksjon... eller tre funksjoner. 
-// En for boks, en for vertikal lengde, og en for horisontal lengde. Hvis ikke den gjør kun de tre så vil den jo kjøre alle radene
-// horisontalt, vertikalt, og alle 9 boksene... for å kun skrive inn et tall... 
-
-// Jeg tror det blir å lage en aktiveringsfunksjon akkurat som activeCell... så trigger activeCell en funskjon som aktiverer de 
-// følgende id-rutene... horisontal, vertikal, og boksen activeCell befinner seg i. Også kjøre den de relativt enkel logiske testene.
-// Som blir tre forskjellige if-statements basert på 3 arrays... som er splicet fra hoved array... I guess... også sjekker den en etter 
-// en. Er boks ok? Er horisontal rad ok? Er vertikal rad ok? Hvis disse tre er ok så får man skrive inn ønkelig tall. 
-
-// Så føler jeg å lage tre arrays for hver gang et tall skal skrives inn er unødvendig?? Kanskje det hadde vært best med med en
-// to dimmensjonal array... et stort array med 9 arrays inni med 9 tall i hver. Da kan man jo bruke indeksering for å si hvilken rad
-// aka array som skal sjekkes. Men må jo drive med splicing der også.... jeg prøver meg først på et array...aka et objekt. 
+} 
