@@ -2,115 +2,59 @@ let activeCell = null;
 let activeCellId = null;
 let box = [];
 const sudokuboardLetters = {
-    "01A": 5, "02A": 0, "03A": 3, "04B": 9, "05B": 1, "06B": 0, "07C": 0, "08C": 0, "09C": 7,
+    "01AAA": 5, "02ABA": 0, "03ACA": 3, "04ADB": 9, "05AEB": 1, "06AFB": 0, "07AGC": 0, "08AHC": 0, "09AIC": 7,
 
-    "10A": 0, "11A": 2, "12A": 6, "13B": 0, "14B": 3, "15B": 0, "16C": 8, "17C": 0, "18C": 5,
+    "10BAA": 0, "11BBA": 2, "12BCA": 6, "13BDB": 0, "14BEB": 3, "15BFB": 0, "16BGC": 8, "17BHC": 0, "18BIC": 5,
 
-    "19A": 4, "20A": 9, "21A": 0, "22B": 0, "23B": 8, "24B": 6, "25C": 2, "26C": 0, "27C": 0,
+    "19CAA": 4, "20CBA": 9, "21CCA": 0, "22CDB": 0, "23CEB": 8, "24CFB": 6, "25CGC": 2, "26CHC": 0, "27CIC": 0,
 
-    "28D": 0, "29D": 5, "30D": 0, "31E": 0, "32E": 2, "33E": 0, "34F": 1, "35F": 7, "36F": 8,
+    "28DAD": 0, "29DBD": 5, "30DCD": 0, "31DDE": 0, "32DEE": 2, "33DFE": 0, "34DGF": 1, "35DHF": 7, "36DIF": 8,
 
-    "37D": 7, "38D": 0, "39D": 0, "40E": 0, "41E": 5, "42E": 0, "43F": 0, "44F": 0, "45F": 3,
+    "37EAD": 7, "38EBD": 0, "39ECD": 0, "40EDE": 0, "41EEE": 5, "42EFE": 0, "43EGF": 0, "44EHF": 0, "45EIF": 3,
 
-    "46D": 8, "47D": 0, "48D": 9, "49E": 0, "50E": 0, "51E": 0, "52F": 0, "53F": 0, "54F": 2,
+    "46FAD": 8, "47FBD": 0, "48FCD": 9, "49FDE": 0, "50FEE": 0, "51FFE": 0, "52FGF": 0, "53FHF": 0, "54FIF": 2,
 
-    "55G": 0, "56G": 0, "57G": 0, "58H": 0, "59H": 0, "60H": 0, "61I": 0, "62I": 2, "63I": 4,
+    "55GAG": 0, "56GBG": 0, "57GCG": 0, "58GDH": 0, "59GEH": 0, "60GFH": 0, "61GGI": 0, "62GHI": 2, "63GII": 4,
 
-    "64G": 0, "65G": 7, "66G": 8, "67H": 0, "68H": 4, "69H": 0, "70I": 0, "71I": 1, "72I": 9,
+    "64HAG": 0, "65HBG": 7, "66HCG": 8, "67HDH": 0, "68HEH": 4, "69HFH": 0, "70HGI": 0, "71HHI": 1, "72HII": 9,
 
-    "73G": 0, "74G": 4, "75G": 5, "76H": 7, "77H": 9, "78H": 0, "79I": 3, "80I": 0, "81I": 0
+    "73IAG": 0, "74IBG": 4, "75ICG": 5, "76IDH": 7, "77IEH": 9, "78IFH": 0, "79IGI": 3, "80IHI": 0, "81III": 0
 };
 
 const entriesArray = Object.entries(sudokuboardLetters);
 
-let A = ["1", "2", "3", "10", "11", "12", "19", "20", "21"]
-let B = ["4", "5", "6", "13", "14", "15", "22", "23", "24"]
+let boxA = ["1", "2", "3", "10", "11", "12", "19", "20", "21"]
+let boxB = ["4", "5", "6", "13", "14", "15", "22", "23", "24"]
 
-
-
-// Forsøk bare å sett første rute til første veriden i nøkkel 1. Også prøv 2-3 ruter, også prøv å lag en loop som tar alle 81. 
-
-// Test Function
 function test() {
-    numExtraction = Number(entriesArray[3][0].slice(0, -1));
+    cellNum = Number(entriesArray[1][0].slice(0, -3))
+    cellRow = entriesArray[72][0].slice(2, -2)
+    cellCol = entriesArray[72][0].slice(3, -1)
+    cellBox = entriesArray[72][0].slice(-1)
 }
 
 test()
 
-// // function setBoard(board) {
-//     i = 1;
-//     while (i < 81) {
-//         console.log(i + "A")
-//         cellValue = board[i + "A"];
-//         console.log(cellValue);
-//         i++
-//     }
-//     //     if (cellValue !== 0) {
-//     //         document.getElementById(i).style.color = "rgb(228, 234, 253)";
-//     //     }
-//     //     document.getElementById(i).innerHTML = cellValue;
-//     //     i++;
-//     // }
-// }
 
-// function setBoard(board) {
-//     i = 1;
-//     while (i < 81) {
-//         console.log(i + "A")
-//         cellValue = board[i + "A"];
-//         console.log(cellValue);
-//         i++
-//     }
-//         if (cellValue !== 0) {
-//             document.getElementById(i).style.color = "rgb(228, 234, 253)";
-//         }
-//         = document.getElementById(i).innerHTML = cellValue;
-//         i++;
-//     }
-// }
-
-// setBoard(sudokuboard);
-
-// GAMMEL KODE FOR BAKCUP 1/2................
-
-const sudokuboard = {
-    "1": 5, "2": 0, "3": 3, "4": 9, "5": 1, "6": 0, "7": 0, "8": 0, "9": 7,
-
-    "10": 0, "11": 2, "12": 6, "13": 0, "14": 3, "15": 0, "16": 8, "17": 0, "18": 5,
-
-    "19": 4, "20": 9, "21": 0, "22": 0, "23": 8, "24": 6, "25": 2, "26": 0, "27": 0,
-
-    "28": 0, "29": 5, "30": 0, "31": 0, "32": 2, "33": 0, "34": 1, "35": 7, "36": 8,
-
-    "37": 7, "38": 0, "39": 0, "40": 0, "41": 5, "42": 0, "43": 0, "44": 0, "45": 3,
-
-    "46": 8, "47": 0, "48": 9, "49": 0, "50": 0, "51": 0, "52": 0, "53": 0, "54": 2,
-
-    "55": 0, "56": 0, "57": 0, "58": 0, "59": 0, "60": 0, "61": 0, "62": 2, "63": 4,
-
-    "64": 0, "65": 7, "66": 8, "67": 0, "68": 4, "69": 0, "70": 0, "71": 1, "72": 9,
-
-    "73": 0, "74": 4, "75": 5, "76": 7, "77": 9, "78": 0, "79": 3, "80": 0, "81": 0
-};
-
-// GAMMEL KODE FOR BAKCUP 2/2
+// Setter opp brettet ved å gjøre om sudoku-dictionary til et array.
 
 function setBoard(board) {
     i = 1;
     while (i < 81) {
-        cellValue = board[i];
-        console.log(cellValue);
+        cellId = entriesArray[i - 1][0];
+        console.log(cellId);
+        cellValue = entriesArray[i - 1][1];
+        console.log("This is", cellValue)
         if (cellValue !== 0) {
-            document.getElementById(i).style.color = "rgb(228, 234, 253)";
+            document.getElementById(cellId).style.color = "rgb(228, 234, 253)";
         }
-        document.getElementById(i).innerHTML = cellValue;
+        document.getElementById(cellId).innerHTML = cellValue;
         i++;
     }
 }
 
-setBoard(sudokuboard)
+setBoard(sudokuboardLetters)
 
-// GAMMEL KODE SLUTTER HER.................
 
 function makeActive(cell) {
     if (activeCell !== null) {
@@ -122,59 +66,23 @@ function makeActive(cell) {
 
 let wrongCounter = 0;
 
-// function setNumber(num) {
-//     activeCellId = activeCell.getAttribute("id"); //Et eller annet for fetche id'en til elementet. 
-//     if (num === sudokuboard[activeCellId]) {
-//         activeCell.innerHTML = num;
-//         box.push(num);
-//         console.log(box);
-//     } else {
-//         wrongCounter++
-//         console.log("Wrong number.")
-//     }
-//     if (wrongCounter >= 3) {
-//         console.log("You lost.")
-//     }
-// }
-
-
-// Funksjon som gjør at alle ruter med tallet 0 er "usynlige" så 0 ikke vises. 
-
-
-
-//Checks if box is full against an array
-// function setNumber(num) {
-//     if (activeCell !== null) {
-//         console.log("SetNumber Function Start")
-//         for (let i of box) {
-//             console.log(i)
-//             if (num == i) {
-//                 return console.log("Break. Already a number in the box.");
-//             }
-//         }
-//         activeCell.innerHTML = num;
-//         activeCell.style.color = "rgb(228, 234, 253)";
-//         box.push(num);
-//         console.log(box);
-//     }
-// }
-
 
 function setNumber(num) {
     if (activeCell !== null) {
         console.log("SetNumber Function Start")
         activeCellId = activeCell.getAttribute("id")
-        for (let i of A) {
-            console.log(sudokuboard[i])
-            if (num == sudokuboard[i]) {
+        console.log(activeCell);
+        for (let i of boxA) {
+            console.log(sudokuboardLetters[i])
+            if (num == sudokuboardLetters[i]) {
                 return console.log("Break. Already a number in the box.");
             } 
         }
         activeCell.innerHTML = num;
         activeCell.style.color = "rgb(,228, 234, 253)";
-        sudokuboard[activeCellId] = Number(num);
+        sudokuboardLetters[activeCellId] = Number(num);
         box.push(num);
-        console.log(sudokuboard);
+        console.log(sudokuboardLetters);
     }
 }
 
