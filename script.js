@@ -1,6 +1,8 @@
 let activeCell = null;
 let activeCellId = null;
 let box = [];
+let game = true;
+
 const sudokuboardLetters = {
     "01AAA": 5, "02ABA": 0, "03ACA": 3, "04ADB": 9, "05AEB": 1, "06AFB": 0, "07AGC": 0, "08AHC": 0, "09AIC": 7,
 
@@ -23,25 +25,11 @@ const sudokuboardLetters = {
 
 const entriesArray = Object.entries(sudokuboardLetters);
 
-function test() {
-    cellNum = Number(entriesArray[1][0].slice(0, -3))
-    cellRow = entriesArray[72][0].slice(2, -2)
-    cellCol = entriesArray[72][0].slice(3, -1)
-    cellBox = entriesArray[72][0].slice(-1)
-}
-
-test()
-
-
-// Setter opp brettet ved å gjøre om sudoku-dictionary til et array.
-
 function setBoard(board) {
     i = 1;
     while (i < 81) {
         cellId = entriesArray[i - 1][0];
-        console.log(cellId);
         cellValue = entriesArray[i - 1][1];
-        console.log("This is", cellValue)
         if (cellValue !== 0) {
             document.getElementById(cellId).style.color = "rgb(228, 234, 253)";
         }
@@ -50,8 +38,8 @@ function setBoard(board) {
     }
 }
 
-setBoard(sudokuboardLetters)
 
+setBoard(sudokuboardLetters);
 
 function makeActive(cell) {
     if (activeCell !== null) {
@@ -61,33 +49,58 @@ function makeActive(cell) {
     cell.classList.add("active");
 }
 
-let wrongCounter = 0;
 
+let wrongCounter = 0;
+function gameOver() {
+    wrongCounter++
+    if (wrongCounter == 3) {
+        alert("Game Over!")
+        game = false;
+    }
+}
 
 function setNumber(num) {
-    if (activeCell !== null) {
-        console.log("SetNumber Function Start");
-        activeCellId = activeCell.getAttribute("id");
-        console.log(sudokuboardLetters[activeCellId]);
+    while (game == true) {
+        if (activeCell !== null) {
+            activeCellId = activeCell.getAttribute("id");
         if (sudokuboardLetters[activeCellId] !== 0) {
             return console.log("Only empty squares can be given numbers.");
         } else {
+            whichRow = activeCellId.slice(2, -2);
+            whichCol = activeCellId.slice(3, -1);
             whichBox = activeCellId.slice(-1);
             for (let i of Object.keys(sudokuboardLetters)) {
-                console.log(i);
-                if (i.slice(-1) == whichBox) { // Box-logic to avoid duplicates within same box. 
+                if (i.slice(-1) == whichBox) { // Game logic to avoid duplicates within the same box. 
                     if (sudokuboardLetters[i] == num) {
-                        return console.log("Can't have two of same number within same box.")
+                        gameOver()
+                        return console.log("Can't have two of the same number within one box.");
                     }
                 }
-                // if statement for checking row {}
-                // if statement for checking col {}
+                if (i.slice(2, -2) == whichRow) { // Game logic for rows. 
+                    if (sudokuboardLetters[i] == num) {
+                        gameOver()
+                        return console.log("Can't have two of the same number in one row.");
+                    }
+                }
+                if (i.slice(3, -1) == whichCol) { // Game logic for columns
+                    if (sudokuboardLetters[i] == num) {
+                        gameOver()
+                        return console.log("Can't have two of the same number in one column.");
+                    }
+                }
             }
-            console.log("hell yeah.");
             activeCell.innerHTML = num;
             activeCell.style.color = "rgb(,228, 234, 253)";
             sudokuboardLetters[activeCellId] = Number(num);
+            for (let i of Object.values) {
+                if (i == 0) {
+                    return console.log("Game goes on");
+                }
+            }
+            alert("Victory!");
+            game = false;
         }
 
+        }
     }
 } 
