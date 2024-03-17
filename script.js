@@ -43,7 +43,7 @@ setBoard(sudokuboardLetters);
 
 let waitingForNumber = True
 
-function makeActive(cell) {
+function makeActive(cell) { //Function made by chatgpt.  
     if (activeCell !== null) {
         activeCell.classList.remove("active");
     }
