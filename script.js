@@ -41,12 +41,19 @@ function setBoard(board) {
 
 setBoard(sudokuboardLetters);
 
+let waitingForNumber = True
+
 function makeActive(cell) {
     if (activeCell !== null) {
         activeCell.classList.remove("active");
     }
     activeCell = cell;
     cell.classList.add("active");
+    document.addEventListener('keydown', function (event) {
+        if (event.key >= '1' && event.key <= '9') {
+            setNumber(event.key);
+        }
+    });
 }
 
 
@@ -104,3 +111,4 @@ function setNumber(num) {
         }
     }
 } 
+
